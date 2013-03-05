@@ -12,8 +12,14 @@ import hashlib
 import logging
 
 # Import third party libs
-from M2Crypto import RSA
-from Crypto.Cipher import AES
+try:
+    from M2Crypto import RSA
+except ImportError:
+    RSA = None
+try:
+    from Crypto.Cipher import AES
+except ImportError:
+    AES = None
 
 # Import salt libs
 import salt.utils

@@ -23,7 +23,10 @@ import multiprocessing
 from multiprocessing import Process
 
 # Import third party libs
-import zmq
+try:
+    import zmq
+except:
+    zmq = None
 import yaml
 
 # Import salt libs

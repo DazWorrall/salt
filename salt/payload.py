@@ -9,12 +9,14 @@ import sys
 
 # Import salt libs
 import salt.log
-import salt.crypt
 from salt.exceptions import SaltReqTimeoutError
 from salt._compat import pickle
 
 # Import third party libs
-import zmq
+try:
+    import zmq
+except ImportError:
+    zmq = None
 
 log = salt.log.logging.getLogger(__name__)
 
@@ -35,7 +37,7 @@ except ImportError:
         LOG_FORMAT = '[%(levelname)-8s] %(message)s'
         salt.log.setup_console_logger(log_format=LOG_FORMAT)
         log.fatal('Unable to import msgpack or msgpack_pure python modules')
-        sys.exit(1)
+        #sys.exit(1)
 
 
 def package(payload):

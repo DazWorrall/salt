@@ -20,7 +20,6 @@ import datetime
 import platform
 import tempfile
 import subprocess
-import zmq
 from calendar import month_abbr as months
 
 try:
@@ -805,6 +804,7 @@ def is_linux():
 
 
 def check_ipc_path_max_len(uri):
+    import zmq
     # The socket path is limited to 107 characters on Solaris and
     # Linux, and 103 characters on BSD-based systems.
     ipc_path_max_len = getattr(zmq, 'IPC_PATH_MAX_LEN', 103)

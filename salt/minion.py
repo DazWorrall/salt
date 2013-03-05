@@ -18,7 +18,10 @@ import sys
 import signal
 
 # Import third party libs
-import zmq
+try:
+    import zmq
+except:
+    zmq = None
 
 HAS_RANGE = False
 try:
@@ -32,8 +35,6 @@ from salt.exceptions import (
     AuthenticationError, CommandExecutionError, CommandNotFoundError,
     SaltInvocationError, SaltReqTimeoutError, SaltClientError
 )
-import salt.client
-import salt.crypt
 import salt.loader
 import salt.utils
 import salt.payload
@@ -593,6 +594,7 @@ class Minion(object):
         in, signing in can occur as often as needed to keep up with the
         revolving master aes key.
         '''
+        import salt.crypt
         log.debug(
             'Attempting to authenticate with the Salt Master at {0}'.format(
                 self.opts['master_ip']
@@ -821,6 +823,7 @@ class Syndic(Minion):
     master to authenticate with a higher level master.
     '''
     def __init__(self, opts):
+        import salt.client
         self._syndic = True
         Minion.__init__(self, opts)
         self.local = salt.client.LocalClient(opts['_master_conf_file'])
